@@ -36,8 +36,7 @@
 
         <activity android:name=".activity.MapActivity"/>
 
-        <service android:name=".utility.services.LocationService"
-            android:foregroundServiceType="location"/>
+        <activity android:name=".activity.DetailActivity"/>
 
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key"/>

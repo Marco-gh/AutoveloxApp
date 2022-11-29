@@ -1,24 +1,16 @@
 package it.univaq.autoveloxapp.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +26,6 @@ import it.univaq.autoveloxapp.R;
 import it.univaq.autoveloxapp.model.Autovelox;
 import it.univaq.autoveloxapp.utility.AdapterMain;
 import it.univaq.autoveloxapp.utility.RequestVolley;
-import it.univaq.autoveloxapp.utility.services.LocationService;
 
 public class ListActivity extends AppCompatActivity {
     private List<Autovelox> data = new ArrayList<>();
@@ -42,7 +33,7 @@ public class ListActivity extends AppCompatActivity {
     private AdapterMain autoveloxAdapter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
@@ -91,69 +82,21 @@ public class ListActivity extends AppCompatActivity {
         autoveloxAdapter.setOnAutoveloxAdapterListener(new AdapterMain.OnAutoveloxAdapterListener() {
             @Override
             public void OnOpenAutovelox(Autovelox autovelox) {
-                if(LocationService.getUser_location()!=null) {
-                    Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                    intent.putExtra(MapActivity.KEY_EXTRA, autovelox.toString());
-                    startActivity(intent);
-                }
-                else{
-                    startLocalization();
-                }
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                intent.putExtra(MapActivity.KEY_EXTRA, autovelox.toString());
+                intent.putExtra(MapActivity.KEY_ACTION, 1);
+                startActivity(intent);
             }
         });
 
         button_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(LocationService.getUser_location()!=null){
-                    Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                    intent.putExtra(MapActivity.KEY_EXTRA, nearestAutovelox().toString());
-                    startActivity(intent);
-                    //System.out.println("TI STAMPO IL DB"+DB.getInstance(getApplicationContext()).getAutoveloxDao().findAll().toString());
-                }
-                else{
-                    startLocalization();
-                }
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                intent.putExtra(MapActivity.KEY_ACTION, 2);
+                startActivity(intent);
             }
         });
-    }
-
-    private void startLocalization() {
-        int permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
-        if(permission == PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(getApplicationContext(), LocationService.class);
-            intent.putExtra(LocationService.KEY_ACTION, LocationService.ACTION_START);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(intent);
-            } else {
-                startService(intent);
-            }
-        } else {
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1);
-        }
-    }
-
-    private void stopLocalization() {
-        Intent intent = new Intent(getApplicationContext(), LocationService.class);
-        intent.putExtra(LocationService.KEY_ACTION, LocationService.ACTION_STOP);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            //Permessi per prendere l'app in foreground e background
-            startForegroundService(intent);
-        } else {
-            startService(intent);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 1) {
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startLocalization();
-            } else {
-                //da gestire la richiesta di permessi negata
-            }
-        }
     }
 
     private void loadData(){
@@ -186,33 +129,5 @@ public class ListActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
-
-    public Autovelox nearestAutovelox(){
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();*/
-        float distance = 9999999999F;
-        Autovelox returned_autovelox = new Autovelox();
-        for(int i = 0; i < this.data.size(); i++){
-            Autovelox autovelox = data.get(i);
-            Double lat_autovelox = autovelox.getLatitude();
-            Double lon_autovelox = autovelox.getLongitude();
-
-            if(lat_autovelox!=null && lon_autovelox!=null){
-                Location location = new Location("Posizione autovelox");
-                location.setLatitude(lat_autovelox);
-                location.setLongitude(lon_autovelox);
-                float distanceTo = LocationService.getUser_location().distanceTo(location);
-                if(distanceTo < distance){
-                    distance = distanceTo;
-                    returned_autovelox = autovelox;
-                }
-            }
-        }
-        return returned_autovelox;
     }
 }

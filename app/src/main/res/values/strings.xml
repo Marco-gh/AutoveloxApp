@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">AutoveloxApp</string>
+    <string name="Toast_no_data">No data avaiable</string>
+    <string name="details_autovelox">Details autovelox</string>
+    <string name="my_position">My Position</string>
+    <string name="trova_autovelox_più_vicino">Find the nearest autovelox</string>
+</resources>

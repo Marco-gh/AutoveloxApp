@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="trova_autovelox_più_vicino">Trova autovelox più vicino</string>
+    <string name="my_position">La mia posizione</string>
+    <string name="Toast_no_data">No dati disponibili</string>
+    <string name="details_autovelox">Dettagli autovelox</string>
+</resources>

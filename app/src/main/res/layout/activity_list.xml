@@ -7,10 +7,10 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button_nearest_autovelox"
+        android:id="@+id/button_view_all_autovelox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/trova_autovelox_più_vicino" />
+        android:text="@string/view_all_autovelox" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

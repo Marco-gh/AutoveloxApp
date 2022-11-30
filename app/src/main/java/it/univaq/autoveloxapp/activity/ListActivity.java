@@ -14,10 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +41,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        Button button_start = findViewById(R.id.button_nearest_autovelox);
+        Button button_view_all_autovelox = findViewById(R.id.button_view_all_autovelox);
         this.autoveloxAdapter = new AdapterMain(this.data);
         this.recyclerView = findViewById(R.id.recycler_view);
         this.recyclerView.setAdapter(this.autoveloxAdapter);
@@ -88,10 +92,13 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        button_start.setOnClickListener(new View.OnClickListener() {
+        button_view_all_autovelox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                intent.putExtra(MapActivity.KEY_EXTRA, MapActivity.ACTION_ALL);
 
+                startActivity(intent);
             }
         });
     }

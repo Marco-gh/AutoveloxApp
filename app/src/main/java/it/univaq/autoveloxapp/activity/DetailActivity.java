@@ -39,7 +39,6 @@ public class DetailActivity extends AppCompatActivity {
 
     public void setupTextView(){
         Intent intent = getIntent();
-        System.out.println("LA SEDEEEEEEEEEEEEEE "+intent.getStringExtra(KEY_EXTRA_DETAIL));
         if(intent.getStringExtra(KEY_EXTRA_DETAIL)!=null){
             try {
                 autovelox = Autovelox.parseAutovelox(intent.getStringExtra(KEY_EXTRA_DETAIL));

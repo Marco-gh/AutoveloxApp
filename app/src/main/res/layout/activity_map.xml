@@ -16,35 +16,35 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView_map_municipality"
+            android:id="@+id/textView_map1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:textSize="26sp"
-            tools:text="Comune di prova" />
+            tools:text="textView_map1" />
 
         <TextView
-            android:id="@+id/textView_map_region"
+            android:id="@+id/textView_map2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:textSize="26sp"
-            tools:text="Regione di prova" />
+            tools:text="textView_map2" />
 
         <TextView
-            android:id="@+id/textView_map_date_time"
+            android:id="@+id/textView_map3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
             android:textSize="26sp"
-            tools:text="Data e ora" />
+            tools:text="textView_map3" />
 
         <Button
-            android:id="@+id/button_to_details"
+            android:id="@+id/button_activity_map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/details_autovelox"
             app:icon="@drawable/ic_baseline_details"
+            tools:text="Text"
             tools:visibility="visible" />
     </LinearLayout>
 

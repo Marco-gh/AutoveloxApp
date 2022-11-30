@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name" translatable="false">AutoveloxApp</string>
     <string name="Toast_no_data">No data avaiable</string>
-    <string name="details_autovelox">Details autovelox</string>
+    <string name="details_autovelox">Button activity map</string>
     <string name="my_position">My Position</string>
-    <string name="trova_autovelox_più_vicino">Find the nearest autovelox</string>
+    <string name="view_all_autovelox">Find all the autovelox</string>
     <string name="municipality">Municipality</string>
     <string name="region">Region</string>
     <string name="provence">Provence</string>
@@ -14,4 +14,9 @@
     <string name="map_identifier">Map identifier</string>
     <string name="longitude">Longitude</string>
     <string name="latitude">Latitude</string>
+    <string name="detail_autovelox">Detail autovelox</string>
+    <string name="nearest_autovelox">Nearest autovelox</string>
+    <string name="users_latitude">User\'s latitude</string>
+    <string name="users_longitude">User\'s longitude</string>
+    <string name="users_velocity">User\'s velocity</string>
 </resources>

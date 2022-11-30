@@ -9,6 +9,18 @@ import android.location.LocationManager;
 import androidx.core.content.ContextCompat;
 
 public class LocationHelper {
+    private static volatile LocationHelper instance = null;
+
+    private LocationHelper(){}
+
+    public static synchronized LocationHelper getInstance() {
+        if(instance == null) {
+            synchronized (LocationHelper.class) {
+                if(instance == null) instance = new LocationHelper();
+            }
+        }
+        return instance;
+    }
 
     public void start(Context context, LocationListener listener) {
         //Il risultato del controllo del permesso è un intero

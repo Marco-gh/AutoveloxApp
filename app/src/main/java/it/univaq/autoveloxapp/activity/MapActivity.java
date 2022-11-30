@@ -46,7 +46,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Autovelox autovelox = new Autovelox();
     private GoogleMap googleMap;
     private Marker myMarker = null;
-    private LocationHelper locationHelper = new LocationHelper();
+    private LocationHelper locationHelper = LocationHelper.getInstance();
     private List<Autovelox> data = new ArrayList<>();
     private boolean show_all = false;
     private Autovelox nearest_autovelox = null;

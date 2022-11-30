@@ -4,4 +4,13 @@
     <string name="my_position">La mia posizione</string>
     <string name="Toast_no_data">No dati disponibili</string>
     <string name="details_autovelox">Dettagli autovelox</string>
+    <string name="municipality">Comune</string>
+    <string name="region">Regione</string>
+    <string name="provence">Provincia</string>
+    <string name="name">Nome</string>
+    <string name="insertion_year">Anno di inserimento</string>
+    <string name="insertion_date_time">Data e orario di inserimento</string>
+    <string name="map_identifier">Identificatore map</string>
+    <string name="longitude">Longitudine</string>
+    <string name="latitude">Latitudine</string>
 </resources>

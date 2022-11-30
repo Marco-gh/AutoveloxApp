@@ -37,30 +37,18 @@ import it.univaq.autoveloxapp.utility.LocationHelper;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
     public static final String KEY_EXTRA = "extra";
-    /**
-     * @Value 1 se si vuole visualizzare uno specifico autovelox
-     * @Value 2 se si cerca l'autovelox più vicino alla posizione
-     */
-    public static final String KEY_ACTION = "ACTION";
     private TextView textView_map_municipality, textView_map_region, textView_map_date_time;
     private Button button_to_detail;
     private Autovelox autovelox = new Autovelox();
     private GoogleMap googleMap;
     private Marker myMarker = null;
     private LocationHelper locationHelper = new LocationHelper();
+    private List<Autovelox> data = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
-        int resultPermission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
-        if(resultPermission == PackageManager.PERMISSION_GRANTED){
-            locationHelper.start(getApplicationContext(), this);
-        }
-        else {
-            requestPermissions(new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1);
-        }
 
         textView_map_municipality = findViewById(R.id.textView_map_municipality);
         textView_map_region = findViewById(R.id.textView_map_region);
@@ -88,29 +76,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         button_to_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //PER ANDARE ALLA SCHERMATA DETTAGLI
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.KEY_EXTRA_DETAIL, autovelox.toString());
+                startActivity(intent);
             }
         });
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        Intent intent = getIntent();
-        if(intent.getIntExtra(MapActivity.KEY_ACTION, 1) == 1){
-            this.googleMap = googleMap;
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.title(String.valueOf(autovelox.getMap_identifier()));
-            LatLng latLng = new LatLng(autovelox.getLatitude(), autovelox.getLongitude());
-            markerOptions.position(latLng);
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-            googleMap.addMarker(markerOptions);
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+        this.googleMap = googleMap;
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title(String.valueOf(autovelox.getMap_identifier()));
+        LatLng latLng = new LatLng(autovelox.getLatitude(), autovelox.getLongitude());
+        markerOptions.position(latLng);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        googleMap.addMarker(markerOptions);
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
+
+        int resultPermission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
+        if(resultPermission == PackageManager.PERMISSION_GRANTED){
+            locationHelper.start(getApplicationContext(), this);
+        }
+        else {
+            requestPermissions(new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, 1);
         }
     }
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        Intent intent = getIntent();
         if(googleMap != null) {
             if(myMarker == null) {
                 MarkerOptions options = new MarkerOptions();
@@ -120,19 +114,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
             else {
                 myMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-            }
-
-            //Se si cerca l'autovelox piu vicino
-            if(intent.getIntExtra(MapActivity.KEY_ACTION, 1) == 2){
-                Autovelox nearestAutovelox = nearestAutovelox(location);
-                this.googleMap = googleMap;
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.title(String.valueOf(nearestAutovelox.getMap_identifier()));
-                LatLng latLng = new LatLng(nearestAutovelox.getLatitude(), nearestAutovelox.getLongitude());
-                markerOptions.position(latLng);
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                googleMap.addMarker(markerOptions);
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f));
             }
         }
     }
@@ -156,7 +137,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public Autovelox nearestAutovelox(@NonNull Location userLocation){
-        List<Autovelox> data = DB.getInstance(getApplicationContext()).getAutoveloxDao().findAll();
         float distance = 9999999999F;
         Autovelox returned_autovelox = new Autovelox();
 

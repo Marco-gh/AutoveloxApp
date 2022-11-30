@@ -84,7 +84,6 @@ public class ListActivity extends AppCompatActivity {
             public void OnOpenAutovelox(Autovelox autovelox) {
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 intent.putExtra(MapActivity.KEY_EXTRA, autovelox.toString());
-                intent.putExtra(MapActivity.KEY_ACTION, 1);
                 startActivity(intent);
             }
         });
@@ -92,9 +91,7 @@ public class ListActivity extends AppCompatActivity {
         button_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-                intent.putExtra(MapActivity.KEY_ACTION, 2);
-                startActivity(intent);
+
             }
         });
     }

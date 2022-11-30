@@ -161,19 +161,19 @@ public class Autovelox {
         else autovelox.setName("-");
 
         if(json.getString("canno_inserimento")!="") autovelox.setInsertion_year(json.getInt("canno_inserimento"));
-        else autovelox.setInsertion_year(null);
+        else autovelox.setInsertion_year(0000);
 
         if(json.getString("cdata_e_ora_inserimento")!="") autovelox.setInsertion_date_time(json.getString("cdata_e_ora_inserimento"));
         else autovelox.setInsertion_date_time("-");
 
         if(json.getString("cidentificatore_in_openstreetmap")!="") autovelox.setMap_identifier(json.getInt("cidentificatore_in_openstreetmap"));
-        else autovelox.setMap_identifier(null);
+        else autovelox.setMap_identifier(0000);
 
         if (json.getString("clongitudine")!="") autovelox.setLongitude(json.getDouble("clongitudine"));
-        else autovelox.setLongitude(null);
+        else autovelox.setLongitude((double) 0000);
 
         if (json.getString("clatitudine")!="") autovelox.setLatitude(json.getDouble("clatitudine"));
-        else autovelox.setLatitude(null);
+        else autovelox.setLatitude((double) 0000);
 
         return autovelox;
     }

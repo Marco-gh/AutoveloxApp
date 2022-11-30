@@ -5,4 +5,13 @@
     <string name="details_autovelox">Details autovelox</string>
     <string name="my_position">My Position</string>
     <string name="trova_autovelox_più_vicino">Find the nearest autovelox</string>
+    <string name="municipality">Municipality</string>
+    <string name="region">Region</string>
+    <string name="provence">Provence</string>
+    <string name="name">Name</string>
+    <string name="insertion_year">Insertion year</string>
+    <string name="insertion_date_time">Insertion date/time</string>
+    <string name="map_identifier">Map identifier</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
 </resources>

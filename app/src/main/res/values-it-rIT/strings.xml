@@ -11,11 +11,13 @@
     <string name="map_identifier">Identificatore map</string>
     <string name="longitude">Longitudine</string>
     <string name="latitude">Latitudine</string>
-    <string name="view_all_autovelox">Trova tutti gli autovelox</string>
+    <string name="view_all_autovelox">Mostra tutti gli autovelox</string>
     <string name="details_autovelox">Button</string>
     <string name="detail_autovelox">Dettagli autovelox</string>
     <string name="nearest_autovelox">Trova autovelox più vicino</string>
     <string name="users_latitude">Latitudine dell\'utente</string>
     <string name="users_longitude">Longitudine dell\'utente</string>
     <string name="users_velocity">Velocità dell\'utente</string>
+    <string name="warning">Attenzione</string>
+    <string name="remember_GPS">Ricorda di accendere il gps per il funzionamento dell\'app</string>
 </resources>

@@ -1,27 +1,25 @@
 package it.univaq.autoveloxapp.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +45,27 @@ public class ListActivity extends AppCompatActivity {
         this.recyclerView.setAdapter(this.autoveloxAdapter);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+        if(!isGPSAvaiable()){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (!isFinishing()){
+                        new AlertDialog.Builder(ListActivity.this)
+                            .setTitle(R.string.warning)
+                            .setMessage(R.string.remember_GPS)
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).show();
+                    }
+                }
+            });
+        }
+
+        System.out.println("la sede"+isNetworkAvailable());
         if(isNetworkAvailable()){
             RequestVolley.getInstance(getApplicationContext()).doGetRequest("http://www.datiopen.it/export/json/Mappa-degli-autovelox-in-italia.json", new RequestVolley.OnCompleteCallback() {
                 @Override
@@ -120,18 +139,21 @@ public class ListActivity extends AppCompatActivity {
         }).start();
     }
 
-    public boolean isNetworkAvailable() {
-        Context context = getApplicationContext();
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        //Giusto usare questo metodo?
-        NetworkInfo[] info = connectivity.getAllNetworkInfo();
-        if (info != null) {
-            for (int i = 0; i < info.length; i++) {
-                if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
-            }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService (Context.CONNECTIVITY_SERVICE);
+        // ARE WE CONNECTED TO THE NET
+        if (conMgr.getActiveNetworkInfo() != null
+                && conMgr.getActiveNetworkInfo().isAvailable()
+                && conMgr.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+
+    public boolean isGPSAvaiable(){
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
+        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return statusOfGPS;
     }
 }

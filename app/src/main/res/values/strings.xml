@@ -4,7 +4,7 @@
     <string name="Toast_no_data">No data avaiable</string>
     <string name="details_autovelox">Button activity map</string>
     <string name="my_position">My Position</string>
-    <string name="view_all_autovelox">Find all the autovelox</string>
+    <string name="view_all_autovelox">Show all the autovelox</string>
     <string name="municipality">Municipality</string>
     <string name="region">Region</string>
     <string name="provence">Provence</string>
@@ -19,4 +19,6 @@
     <string name="users_latitude">User\'s latitude</string>
     <string name="users_longitude">User\'s longitude</string>
     <string name="users_velocity">User\'s velocity</string>
+    <string name="warning">Warning</string>
+    <string name="remember_GPS">Remember to switch on the gps for app operation</string>
 </resources>

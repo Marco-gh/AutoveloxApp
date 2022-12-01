@@ -23,7 +23,6 @@ public class LocationHelper {
     }
 
     public void start(Context context, LocationListener listener) {
-        //Il risultato del controllo del permesso è un intero
         int resultPermission = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
         if(resultPermission == PackageManager.PERMISSION_GRANTED) {
             LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);

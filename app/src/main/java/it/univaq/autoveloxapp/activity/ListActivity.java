@@ -65,7 +65,6 @@ public class ListActivity extends AppCompatActivity {
             });
         }
 
-        System.out.println("la sede"+isNetworkAvailable());
         if(isNetworkAvailable()){
             RequestVolley.getInstance(getApplicationContext()).doGetRequest("http://www.datiopen.it/export/json/Mappa-degli-autovelox-in-italia.json", new RequestVolley.OnCompleteCallback() {
                 @Override
@@ -116,7 +115,6 @@ public class ListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 intent.putExtra(MapActivity.KEY_EXTRA, MapActivity.ACTION_ALL);
-
                 startActivity(intent);
             }
         });
@@ -127,7 +125,6 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void run() {
                 data.addAll(DB.getInstance(getApplicationContext()).getAutoveloxDao().findAll());
-                //se continua a essere vuoto il DB
                 if(data.size()==0){
                     Toast toast = new Toast(getApplicationContext());
                     toast.setText(R.string.Toast_no_data);
@@ -140,20 +137,13 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private boolean isNetworkAvailable() {
-        ConnectivityManager conMgr = (ConnectivityManager) getSystemService (Context.CONNECTIVITY_SERVICE);
-        // ARE WE CONNECTED TO THE NET
-        if (conMgr.getActiveNetworkInfo() != null
-                && conMgr.getActiveNetworkInfo().isAvailable()
-                && conMgr.getActiveNetworkInfo().isConnected()) {
-            return true;
-        } else {
-            return false;
-        }
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return conMgr.getActiveNetworkInfo() != null && conMgr.getActiveNetworkInfo().isAvailable()
+                && conMgr.getActiveNetworkInfo().isConnected();
     }
 
     public boolean isGPSAvaiable(){
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE );
-        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        return statusOfGPS;
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 }

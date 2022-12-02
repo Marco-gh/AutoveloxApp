@@ -20,4 +20,5 @@
     <string name="users_velocity">Velocità dell\'utente</string>
     <string name="warning">Attenzione</string>
     <string name="remember_GPS">Ricorda di accendere il gps per il funzionamento dell\'app</string>
+    <string name="no_user_position">Posizione utente non abilitata</string>
 </resources>

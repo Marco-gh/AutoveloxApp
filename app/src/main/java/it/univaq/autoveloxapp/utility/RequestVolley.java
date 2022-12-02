@@ -9,14 +9,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class RequestVolley {
-
-    //Coda dove mettere le richieste
     private RequestQueue queue;
 
-    //Istanza della classe astratta (in singleton)
+    private RequestVolley(Context context){
+        queue = Volley.newRequestQueue(context);
+    }
+
     private volatile static RequestVolley instance = null;
 
-    //Unico metodo di accesso all'istanza, nel caso chiama il costruttore privato
     public synchronized static RequestVolley getInstance(Context context) {
         if(instance == null) {
             synchronized (RequestVolley.class) {
@@ -24,11 +24,6 @@ public class RequestVolley {
             }
         }
         return instance;
-    }
-
-    private RequestVolley(Context context){
-        //è il tipo di coda più semplice
-        queue = Volley.newRequestQueue(context);
     }
 
     public void doGetRequest(String urlAddress, OnCompleteCallback callback) {

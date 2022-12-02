@@ -44,7 +44,6 @@ public class AdapterMain extends RecyclerView.Adapter<AdapterMain.ViewHolder> {
         return this.data.size();
     }
 
-    //////////////////VIEW HOLDER/////////////////
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView municipality_TextView, region_TextView, date_time_TextView;
 

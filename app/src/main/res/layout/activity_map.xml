@@ -43,6 +43,7 @@
             android:id="@+id/button_activity_map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#EF2323"
             app:icon="@drawable/ic_baseline_details"
             tools:text="Text"
             tools:visibility="visible" />

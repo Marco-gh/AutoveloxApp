@@ -28,7 +28,8 @@
                 android:id="@+id/textView_municipality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#A1235906"
+                android:background="#A12BE153"
+                android:textColor="#263238"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="Municipality" />
@@ -37,7 +38,7 @@
                 android:id="@+id/textView_region"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+                android:background="#C3F3FB"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="Region" />
@@ -46,7 +47,7 @@
                 android:id="@+id/textView_date_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+                android:background="#C3F3FB"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="Date_time" />

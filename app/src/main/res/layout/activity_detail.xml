@@ -27,6 +27,7 @@
                 android:id="@+id/textView_detail_municipality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -34,6 +35,7 @@
                 android:id="@+id/textView_detail_provence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -41,6 +43,7 @@
                 android:id="@+id/textView_detail_region"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -48,6 +51,7 @@
                 android:id="@+id/textView_detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -55,6 +59,7 @@
                 android:id="@+id/textView_detail_insertion_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -62,6 +67,7 @@
                 android:id="@+id/textView_detail_insertion_date_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -69,6 +75,7 @@
                 android:id="@+id/textView_detail_identifier"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -76,6 +83,7 @@
                 android:id="@+id/textView_detail_longit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
 
@@ -83,6 +91,7 @@
                 android:id="@+id/textView_detail_latit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A3ED89"
                 android:textSize="24sp"
                 tools:text="Testo di prova" />
         </LinearLayout>

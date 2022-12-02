@@ -21,4 +21,5 @@
     <string name="users_velocity">User\'s velocity</string>
     <string name="warning">Warning</string>
     <string name="remember_GPS">Remember to switch on the gps for app operation</string>
+    <string name="no_user_position">No user location enabled!</string>
 </resources>

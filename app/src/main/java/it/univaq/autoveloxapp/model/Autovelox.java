@@ -1,7 +1,5 @@
 package it.univaq.autoveloxapp.model;
 
-import android.os.Parcelable;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -12,7 +10,6 @@ import org.json.JSONObject;
 @Entity (tableName = "autovelox")
 public class Autovelox {
 
-    //Attributi da JSON
     private String municipality;
     private String provence;
     private String region;
@@ -40,8 +37,6 @@ public class Autovelox {
     }
 
     public Autovelox(){}
-
-    /////////////////METODI GETTER AND SETTER/////////////////////
 
     public String getMunicipality() {
         return municipality;
@@ -115,12 +110,6 @@ public class Autovelox {
         this.latitude = latitude;
     }
 
-    ///////////////METODI PER CONVERTIRE DA E IN JSON////////////////////
-
-    /**
-     *
-     * @return
-     */
     @Override
     public String toString(){
         try {
@@ -141,11 +130,6 @@ public class Autovelox {
         return null;
     }
 
-    /**
-     * From a JSON string in an Autovelox object
-     * @param data JSON object in string format
-     * @return an Autovelox object
-     */
     public static Autovelox parseAutovelox(String data) throws JSONException {
         Autovelox autovelox = new Autovelox();
         JSONObject json = new JSONObject(data);

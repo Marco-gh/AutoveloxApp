@@ -10,7 +10,9 @@
         android:id="@+id/button_view_all_autovelox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/view_all_autovelox" />
+        android:backgroundTint="#FF3333"
+        android:text="@string/view_all_autovelox"
+        android:textColor="#000000" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

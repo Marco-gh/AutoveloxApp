@@ -109,7 +109,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 @Override
                 public void onClick(View view) {
                     if(nearest_autovelox != null){
-                        show_nearest_autovelox = true;
+                        show_nearest_autovelox = !show_nearest_autovelox;
+                        if(!show_nearest_autovelox){
+                            //+-Rome
+                            LatLng latLng = new LatLng(42.5, 12.5);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5.5f));
+                            button_activity_map.setText(R.string.nearest_autovelox);
+                        }
+                        else{
+                            button_activity_map.setText(R.string.view_all_autovelox);
+                        }
                     }
                 }
             });
@@ -159,7 +168,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onLocationChanged(@NonNull Location location) {
         if(googleMap != null) {
             MarkerOptions options = new MarkerOptions();
-            options.title("My Location");
+            options.title(getString(R.string.my_position));
             options.position(new LatLng(location.getLatitude(), location.getLongitude()));
             if(myMarker == null) {
                 myMarker = googleMap.addMarker(options);
@@ -204,7 +213,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 locationHelper.start(getApplicationContext(), this);
             } else {
-                Toast.makeText(getApplicationContext(), "No user location enabled!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.no_user_position), Toast.LENGTH_SHORT).show();
             }
         }
     }

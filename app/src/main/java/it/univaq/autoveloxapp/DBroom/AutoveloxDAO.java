@@ -9,9 +9,6 @@ import java.util.List;
 
 import it.univaq.autoveloxapp.model.Autovelox;
 
-/**
- * Tramite questa classe definiamo i metodi senza preoccuparci della loro implementazione
- */
 @Dao
 public interface AutoveloxDAO {
     @Insert (onConflict = OnConflictStrategy.REPLACE, entity = Autovelox.class)

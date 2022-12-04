@@ -121,7 +121,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void loadData(){
-        new Thread(new Runnable() {
+        Thread thread_loaData = new Thread(new Runnable() {
             @Override
             public void run() {
                 data.addAll(DB.getInstance(getApplicationContext()).getAutoveloxDao().findAll());
@@ -131,9 +131,15 @@ public class ListActivity extends AppCompatActivity {
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.show();
                 }
-                autoveloxAdapter.notifyDataSetChanged();
             }
-        }).start();
+        });
+        thread_loaData.start();
+        try {
+            thread_loaData.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        autoveloxAdapter.notifyDataSetChanged();
     }
 
     private boolean isNetworkAvailable() {

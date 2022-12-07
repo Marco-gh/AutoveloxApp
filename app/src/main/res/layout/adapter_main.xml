@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#88AFA4">
+    android:background="#C4FAB2">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:id="@+id/textView_region"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#C3F3FB"
+                android:background="#E5F4E5"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="Region" />
@@ -47,7 +47,7 @@
                 android:id="@+id/textView_date_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#C3F3FB"
+                android:background="#E5F4E5"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="Date_time" />

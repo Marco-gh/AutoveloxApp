@@ -31,7 +31,6 @@ import it.univaq.autoveloxapp.utility.RequestVolley;
 
 public class ListActivity extends AppCompatActivity {
     private List<Autovelox> data = new ArrayList<>();
-    private RecyclerView recyclerView;
     private AdapterMain autoveloxAdapter;
 
     @Override
@@ -41,16 +40,15 @@ public class ListActivity extends AppCompatActivity {
 
         Button button_view_all_autovelox = findViewById(R.id.button_view_all_autovelox);
         this.autoveloxAdapter = new AdapterMain(this.data);
-        this.recyclerView = findViewById(R.id.recycler_view);
-        this.recyclerView.setAdapter(this.autoveloxAdapter);
-        this.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setAdapter(this.autoveloxAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         if(!isGPSAvaiable()){
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (!isFinishing()){
-                        new AlertDialog.Builder(ListActivity.this)
+                    new AlertDialog.Builder(ListActivity.this)
                             .setTitle(R.string.warning)
                             .setMessage(R.string.remember_GPS)
                             .setCancelable(false)
@@ -60,7 +58,6 @@ public class ListActivity extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             }).show();
-                    }
                 }
             });
         }
@@ -72,7 +69,6 @@ public class ListActivity extends AppCompatActivity {
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            //get lancia l'eccezione mentre opt dà errore
                             JSONObject jsonObject = jsonArray.optJSONObject(i);
                             if (jsonObject != null) {
                                 Autovelox autovelox = null;
@@ -86,12 +82,7 @@ public class ListActivity extends AppCompatActivity {
                                 DB.getInstance(getApplicationContext()).getAutoveloxDao().insert(data);
                             }
                         }).start();
-                        recyclerView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                autoveloxAdapter.notifyDataSetChanged();
-                            }
-                        });
+                        autoveloxAdapter.notifyDataSetChanged();
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
@@ -125,21 +116,21 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void run() {
                 data.addAll(DB.getInstance(getApplicationContext()).getAutoveloxDao().findAll());
-                if(data.size()==0){
-                    Toast toast = new Toast(getApplicationContext());
-                    toast.setText(R.string.Toast_no_data);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.show();
-                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(data.size()==0){
+                            Toast toast = new Toast(getApplicationContext());
+                            toast.setText(R.string.Toast_no_data);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                        autoveloxAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
         thread_loaData.start();
-        try {
-            thread_loaData.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        autoveloxAdapter.notifyDataSetChanged();
     }
 
     private boolean isNetworkAvailable() {

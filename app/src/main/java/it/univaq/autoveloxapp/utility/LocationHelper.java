@@ -35,5 +35,3 @@ public class LocationHelper {
         manager.removeUpdates(listener);
     }
 }
-
-

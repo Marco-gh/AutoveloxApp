@@ -89,40 +89,45 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             });
         }
         else if(show_all){
-            Thread thread_data = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    data.addAll(DB.getInstance(getApplicationContext()).getAutoveloxDao().findAll());
-                }
-            });
-            thread_data.start();
-            try {
-                thread_data.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            textView_map1.setText(getResources().getString(R.string.users_latitude)+": -");
-            textView_map2.setText(getResources().getString(R.string.users_longitude)+": -");
-            textView_map3.setText(getResources().getString(R.string.users_velocity)+": -");
-            button_activity_map.setText(R.string.nearest_autovelox);
             button_activity_map.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(nearest_autovelox != null){
-                        show_nearest_autovelox = !show_nearest_autovelox;
-                        if(!show_nearest_autovelox){
-                            //+-Rome
-                            LatLng latLng = new LatLng(42.5, 12.5);
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5.5f));
-                            button_activity_map.setText(R.string.nearest_autovelox);
-                        }
-                        else{
-                            button_activity_map.setText(R.string.view_all_autovelox);
-                        }
+            @Override
+            public void onClick(View view) {
+                if(nearest_autovelox != null){
+                    show_nearest_autovelox = !show_nearest_autovelox;
+                    if(!show_nearest_autovelox){
+                        //+-Rome
+                        LatLng latLng = new LatLng(42.5, 12.5);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5.5f));
+                        button_activity_map.setText(R.string.nearest_autovelox);
+                    }
+                    else{
+                        button_activity_map.setText(R.string.view_all_autovelox);
                     }
                 }
-            });
+            }
+        });
+        Thread thread_data = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                data.addAll(DB.getInstance(getApplicationContext()).getAutoveloxDao().findAll());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView_map1.setText(getResources().getString(R.string.users_latitude)+": -");
+                        textView_map2.setText(getResources().getString(R.string.users_longitude)+": -");
+                        textView_map3.setText(getResources().getString(R.string.users_velocity)+": -");
+                        button_activity_map.setText(R.string.nearest_autovelox);
+                    }
+                });
+            }
+        });
+        thread_data.start();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         if (mapFragment != null) {
@@ -167,10 +172,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(@NonNull Location location) {
         if(googleMap != null) {
-            MarkerOptions options = new MarkerOptions();
-            options.title(getString(R.string.my_position));
-            options.position(new LatLng(location.getLatitude(), location.getLongitude()));
             if(myMarker == null) {
+                MarkerOptions options = new MarkerOptions();
+                options.title(getString(R.string.my_position));
+                options.position(new LatLng(location.getLatitude(), location.getLongitude()));
                 myMarker = googleMap.addMarker(options);
                 myMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
             }
@@ -178,14 +183,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 myMarker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                 myMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 if(show_all){
-                    BigDecimal lat = BigDecimal.valueOf(location.getLatitude()).setScale(2, RoundingMode.HALF_UP);
-                    BigDecimal lon = BigDecimal.valueOf(location.getLongitude()).setScale(2,  RoundingMode.HALF_UP);
+                    double lat = Math.floor(location.getLatitude());
+                    double lon = Math.floor(location.getLongitude());
 
                     textView_map1.setText(getResources().getString(R.string.users_latitude)+": "+lat);
                     textView_map2.setText(getResources().getString(R.string.users_longitude)+": "+lon);
                     textView_map3.setText(getResources().getString(R.string.users_velocity)+": "+location.getSpeed());
                     nearest_autovelox = nearestAutovelox(location);
-                    if(show_nearest_autovelox == true){
+                    if(show_nearest_autovelox){
                         MarkerOptions markerOptions = new MarkerOptions();
                         markerOptions.title(String.valueOf(nearest_autovelox.getMap_identifier()));
                         LatLng latLng = new LatLng(nearest_autovelox.getLatitude(), nearest_autovelox.getLongitude());
@@ -228,10 +233,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Double lon_autovelox = autovelox.getLongitude();
 
             if(lat_autovelox!=null && lon_autovelox!=null){
-                Location location = new Location("Posizione autovelox di DATA");
-                location.setLatitude(lat_autovelox);
-                location.setLongitude(lon_autovelox);
-                float distanceTo = userLocation.distanceTo(location);
+                Location location_autovelox = new Location("Posizione autovelox di DATA");
+                location_autovelox.setLatitude(lat_autovelox);
+                location_autovelox.setLongitude(lon_autovelox);
+                float distanceTo = userLocation.distanceTo(location_autovelox);
                 if(distanceTo < distance){
                     distance = distanceTo;
                     returned_autovelox = autovelox;

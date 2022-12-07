@@ -19,6 +19,7 @@
             android:id="@+id/textView_map1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#E5F4E5"
             android:textColor="#000000"
             android:textSize="26sp"
             tools:text="textView_map1" />
@@ -27,6 +28,7 @@
             android:id="@+id/textView_map2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#E5F4E5"
             android:textColor="#000000"
             android:textSize="26sp"
             tools:text="textView_map2" />
@@ -35,6 +37,7 @@
             android:id="@+id/textView_map3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#E5F4E5"
             android:textColor="#000000"
             android:textSize="26sp"
             tools:text="textView_map3" />

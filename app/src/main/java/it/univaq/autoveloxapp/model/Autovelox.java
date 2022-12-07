@@ -134,32 +134,32 @@ public class Autovelox {
         Autovelox autovelox = new Autovelox();
         JSONObject json = new JSONObject(data);
 
-        if(json.getString("ccomune")!="") autovelox.setMunicipality(json.getString("ccomune"));
+        if(!json.getString("ccomune").equals("")) autovelox.setMunicipality(json.getString("ccomune"));
         else autovelox.setMunicipality("-");
 
-        if(json.getString("cprovincia")!="") autovelox.setProvence(json.getString("cprovincia"));
+        if(!json.getString("cprovincia").equals("")) autovelox.setProvence(json.getString("cprovincia"));
         else autovelox.setProvence("-");
 
-        if(json.getString("cregione")!="") autovelox.setRegion(json.getString("cregione"));
+        if(!json.getString("cregione").equals("")) autovelox.setRegion(json.getString("cregione"));
         else autovelox.setRegion("-");
 
-        if(json.getString("cnome")!="") autovelox.setName(json.getString("cnome"));
+        if(!json.getString("cnome").equals("")) autovelox.setName(json.getString("cnome"));
         else autovelox.setName("-");
 
-        if(json.getString("canno_inserimento")!="") autovelox.setInsertion_year(json.getInt("canno_inserimento"));
-        else autovelox.setInsertion_year(0000);
+        if(!json.getString("canno_inserimento").equals("")) autovelox.setInsertion_year(json.getInt("canno_inserimento"));
+        else autovelox.setInsertion_year(0);
 
-        if(json.getString("cdata_e_ora_inserimento")!="") autovelox.setInsertion_date_time(json.getString("cdata_e_ora_inserimento"));
+        if(!json.getString("cdata_e_ora_inserimento").equals("")) autovelox.setInsertion_date_time(json.getString("cdata_e_ora_inserimento"));
         else autovelox.setInsertion_date_time("-");
 
-        if(json.getString("cidentificatore_in_openstreetmap")!="") autovelox.setMap_identifier(json.getInt("cidentificatore_in_openstreetmap"));
-        else autovelox.setMap_identifier(0000);
+        if(!json.getString("cidentificatore_in_openstreetmap").equals("")) autovelox.setMap_identifier(json.getInt("cidentificatore_in_openstreetmap"));
+        else autovelox.setMap_identifier(0);
 
-        if (json.getString("clongitudine")!="") autovelox.setLongitude(json.getDouble("clongitudine"));
-        else autovelox.setLongitude((double) 0000);
+        if (!json.getString("clongitudine").equals("")) autovelox.setLongitude(json.getDouble("clongitudine"));
+        else autovelox.setLongitude((double) 0);
 
-        if (json.getString("clatitudine")!="") autovelox.setLatitude(json.getDouble("clatitudine"));
-        else autovelox.setLatitude((double) 0000);
+        if (!json.getString("clatitudine").equals("")) autovelox.setLatitude(json.getDouble("clatitudine"));
+        else autovelox.setLatitude((double) 0);
 
         return autovelox;
     }
